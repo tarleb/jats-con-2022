@@ -5,20 +5,10 @@ author:
 - name: Albert Krewinkel
   email: albert@zeitkraut.de
   orcid: 0000-0002-9455-0796
-  affiliation: joss
 - name: Juanjo Bazán
   orcid: 0000-0001-7699-3983
-  affiliation: joss
 - name: Arfon Smith
   orcid: 0000-0002-3957-2474
-  affiliation: [joss, github]
-affiliation:
-- id: joss
-  organization: Journal of Open Source Software
-- id: github
-  organisation: GitHub
-  country: USA
-  country-code: US
 copyright:
   statement: Published under CC-BY-SA.
   year: 2022
