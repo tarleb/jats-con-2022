@@ -1,7 +1,7 @@
 ---
 title: Single-step JATS from Markdown
 subtitle: Running a programmer-friendly journal pipeline
-authors:
+author:
 - name: Albert Krewinkel
   email: albert@zeitkraut.de
   orcid: 0000-0002-9455-0796
