@@ -20,7 +20,22 @@ jobs:
           args: >-
             --to=jats_articleauthoring+element_citations
             --output=paper.jats.xml
+            --standalone
             paper.md
+
+      - name: Validate writer output
+        run: |
+          filename=paper.jats.xml
+          printf "Validating file %s\n" "$filename"
+          json="$(curl --form "xml=@${filename}" --silent "$VALIDATOR_URL")"
+          err_count="$(printf '%s' "$json" | jq '.errors | length')"
+          if [ "$err_count" -eq 0 ]; then
+              printf "File was validated successfully.\n"
+              exit 0
+          else
+              printf "Validator report:\n%s" "$json"
+              exit 1
+          fi
 
       - name: Upload JATS output
         uses: actions/upload-artifact@v1
