@@ -18,6 +18,7 @@ jobs:
         uses: 'docker://pandoc/core:edge'
         with:
           args: >-
+            --lua-filter=filters/abstract-to-meta.lua
             --to=jats_articleauthoring+element_citations
             --output=paper.jats.xml
             --standalone
