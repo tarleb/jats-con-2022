@@ -1,21 +1,23 @@
 ---
-title: Single-step JATS from Markdown
-subtitle: Running a programmer-friendly journal pipeline
+title: JATS from Plain Text
+subtitle: developer friendly scholarly publishing
 author:
 - name: Albert Krewinkel
   email: albert@zeitkraut.de
   orcid: 0000-0002-9455-0796
   affiliation:
   - id: 1
-    organization: Journal of Open Source Software
+    organization: Open Journals
 - name: Juanjo Bazán
   orcid: 0000-0001-7699-3983
   affiliation:
   - id: 2
-    organization: Journal of Open Source Software
+    organization: Open Journals
 - name: Arfon Smith
   orcid: 0000-0002-3957-2474
   affiliation:
+  - id: 4
+    organization: Open Journals
   - id: 3
     organization: GitHub
     country: USA
@@ -24,19 +26,26 @@ copyright:
   statement: Published under CC-BY-SA.
   year: 2022
   holder: The authors
-abstract: |
-  Nullam eu ante vel est convallis dignissim. Fusce suscipit, wisi
-  nec facilisis facilisis, est dui fermentum leo, quis tempor ligula
-  erat quis odio. Nunc porta vulputate tellus. Nunc rutrum turpis
-  sed pede. Sed bibendum. Aliquam posuere. Nunc aliquet, augue nec
-  adipiscing interdum, lacus tellus malesuada massa, quis varius mi
-  purus non odio. Pellentesque condimentum, magna ut suscipit
-  hendrerit, ipsum augue ornare nulla, non luctus diam neque sit
-  amet urna. Curabitur vulputate vestibulum lorem. Fusce sagittis,
-  libero non molestie mollis, magna orci ultrices dolor, at
-  vulputate neque nulla lacinia eros. Sed id ligula quis est
-  convallis tempor. Curabitur lacinia pulvinar nibh. Nam a sapien.
 ---
+
+# Abstract
+
+Research software has become an integral part of doing science in
+many disciplines. As a consequence, it is becoming increasingly
+important to publish. The Journal of Open Source Software (JOSS)
+is a developer friendly, open access journal for research software
+packages. Article authors are generally comfortable with tools
+commonly used by software developers. The JOSS production pipeline
+is considerate of this, supporting submissions to be written in
+Markdown, a lightweight markup-language.
+
+Here we present the publishing pipeline developed for JOSS,
+especially the conversion of articles authored in Markdown into
+PDF and XML formats, including JATS. We describe how we built on
+and extended the document converter "pandoc", how metadata is
+processed and integrated into the publishing artifacts, and which
+advantages and challenges we see in enriching plain-text inputs
+into structured documents.
 
 # Introduction
 
