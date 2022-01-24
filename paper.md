@@ -1,6 +1,6 @@
 ---
-title: JATS from Plain Text
-subtitle: developer friendly scholarly publishing
+title: JATS from Markdown
+subtitle: developer friendly single-source scholarly publishing
 author:
 - name: Albert Krewinkel
   email: albert@zeitkraut.de
