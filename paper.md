@@ -39,7 +39,8 @@ commonly used by software developers. The JOSS production pipeline
 is considerate of this, supporting submissions to be written in
 Markdown, a lightweight markup-language.
 
-Here we present the publishing pipeline developed for JOSS,
+Here we present the single-source publishing pipeline developed
+for JOSS,
 especially the conversion of articles authored in Markdown into
 PDF and XML formats, including JATS. We describe how we built on
 and extended the document converter "pandoc", how metadata is
@@ -74,5 +75,3 @@ consequat quis, varius et, dictum id, arcu. Mauris mollis tincidunt
 felis. Aliquam feugiat tellus ut neque. Nulla facilisis, risus a
 rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
 sit amet elit.
-
-
