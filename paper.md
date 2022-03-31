@@ -1,6 +1,6 @@
 ---
 title: JATS from Markdown
-subtitle: developer friendly single-source scholarly publishing
+subtitle: Developer friendly single-source scholarly publishing
 author:
 - name: Albert Krewinkel
   email: albert@zeitkraut.de
@@ -171,3 +171,10 @@ We convert to pandoc's metadata schema for JATS output
 PDF is generated directly from the Markdown input, as is Crossref
 XML. It would be possible to also publish an HTML version of the
 articles, but this remains future work.
+
+# Future Work
+
+- Generalizing the pipeline to make it usable by other journals.
+- Allow for alternative plain-text input formats like
+  org[@Dominik2010] or reStructuredText[@reStructuredText].
+- Support for quarto
