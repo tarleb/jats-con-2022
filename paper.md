@@ -26,6 +26,7 @@ copyright:
   statement: Published under CC-BY-SA.
   year: 2022
   holder: The authors
+bibliography: paper.bib
 ---
 
 # Abstract
@@ -49,6 +50,11 @@ advantages and challenges we see in enriching plain-text inputs
 into structured documents.
 
 # Introduction
+
+The Journal of Open Source Software, created in May 2016, has the
+dual goals of "improving the quality of the software submitted and
+providing a mechanism for research software developers to receive
+credit".[@smith2018]
 
 Pellentesque dapibus suscipit ligula. Donec posuere augue in quam.
 Etiam vel tortor sodales tellus ultricies commodo. Suspendisse
