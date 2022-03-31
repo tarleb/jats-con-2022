@@ -81,3 +81,93 @@ consequat quis, varius et, dictum id, arcu. Mauris mollis tincidunt
 felis. Aliquam feugiat tellus ut neque. Nulla facilisis, risus a
 rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
 sit amet elit.
+
+# Basic Tagging
+
+In this section we demonstrate common conversions.
+
+## Emphasis Markup
+
+The markup in Markdown in supposed to be semantical, not
+presentational. The table below gives a small example.
+
+| Markup          | Markdown   | JATS                    |
+|-----------------|------------|-------------------------|
+| Emphasis        | `*this*`   | `<italic>this</italic>` |
+| Strong emphasis | `**that**` | `<bold>that</bold>`     |
+| Superscript     | `H~2~O`    | `H<sub>2</sub>O`        |
+| Subscript       | `Ca^2+^`   | `Ca<sup>2+</sup>`       |
+
+## Mathematical Formulæ
+
+Markdown allows the inclusion of mathematical formulæ using TeX
+notation, where the math is delimited by single dollar `$`
+characters for inline math, and double `$$` characters for display
+math. A formula like $a^2 + b^2 = c^2$ is rendered as
+
+``` xml
+<inline-formula>
+  <alternatives>
+    <tex-math>
+<![CDATA[a^2 + b^2 = c^2]]>
+    </tex-math>
+    <mml:math display="inline"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML">
+      <mml:mrow>
+        <mml:msup>
+          <mml:mi>a</mml:mi>
+          <mml:mn>2</mml:mn>
+        </mml:msup>
+        <mml:mo>+</mml:mo>
+        <mml:msup>
+          <mml:mi>b</mml:mi>
+          <mml:mn>2</mml:mn>
+        </mml:msup>
+        <mml:mo>=</mml:mo>
+        <mml:msup>
+          <mml:mi>c</mml:mi>
+          <mml:mn>2</mml:mn>
+        </mml:msup>
+      </mml:mrow>
+    </mml:math>
+  </alternatives>
+</inline-formula>
+```
+
+Note that the XML includes both the raw TeX markup as well as the
+MathML representation.
+
+<!--
+Maybe this one is nicer?
+$\int_{-\infty}^{+\infty} e^{-x^2} \, dx$
+-->
+
+## References
+
+BibTeX, and the advanced reimplementation BibLaTeX, are popular
+reference management systems. The `.bib` text files used by these
+tools can be regarded as a kind of *lingua franca* of reference
+handling, as most systems can read and write the format. Due to
+this familiarity to most authors, and as pandoc has full support
+for bib files, these the preferred source for bibliography
+generation.
+
+Pandoc uses the Citation Style Language (CSL) to style citations
+as well as the bibliography. By default, `<mixed-citation>`
+elements are used and filled with plain (untagged) text that is
+formatted according to the requirements of the current CSL.
+
+For JOSS, however, we chose to use the alternative
+`<element-citation>` elements, which can be enabled via an pandoc
+option. This allows roundtrips from bib to JATS and back, should
+it ever be necessary.
+
+
+# Challenges
+
+Differences between JATS and pandoc's internal document model.
+
+| component | pandoc     | jats                       |
+|-----------|------------|----------------------------|
+| math      | any inline | not named contents, target |
+|           |            |                            |
