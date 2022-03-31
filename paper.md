@@ -56,39 +56,29 @@ dual goals of "improving the quality of the software submitted and
 providing a mechanism for research software developers to receive
 credit".[@smith2018]
 
-Pellentesque dapibus suscipit ligula. Donec posuere augue in quam.
-Etiam vel tortor sodales tellus ultricies commodo. Suspendisse
-potenti. Aenean in sem ac leo mollis blandit. Donec neque quam,
-dignissim in, mollis nec, sagittis eu, wisi. Phasellus lacus. Etiam
-laoreet quam sed arcu. Phasellus at dui in ligula mollis ultricies.
-Integer placerat tristique nisl. Praesent augue. Fusce commodo.
-Vestibulum convallis, lorem a tempus semper, dui dui euismod elit,
-vitae placerat urna tortor vitae lacus. Nullam libero mauris,
-consequat quis, varius et, dictum id, arcu. Mauris mollis tincidunt
-felis. Aliquam feugiat tellus ut neque. Nulla facilisis, risus a
-rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
-sit amet elit.
+We developed a publishing system to go from Markdown to JATS in a
+mostly automatic fashion.
 
-Pellentesque dapibus suscipit ligula. Donec posuere augue in quam.
-Etiam vel tortor sodales tellus ultricies commodo. Suspendisse
-potenti. Aenean in sem ac leo mollis blandit. Donec neque quam,
-dignissim in, mollis nec, sagittis eu, wisi. Phasellus lacus. Etiam
-laoreet quam sed arcu. Phasellus at dui in ligula mollis ultricies.
-Integer placerat tristique nisl. Praesent augue. Fusce commodo.
-Vestibulum convallis, lorem a tempus semper, dui dui euismod elit,
-vitae placerat urna tortor vitae lacus. Nullam libero mauris,
-consequat quis, varius et, dictum id, arcu. Mauris mollis tincidunt
-felis. Aliquam feugiat tellus ut neque. Nulla facilisis, risus a
-rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
-sit amet elit.
+The system follows the general idea of using Markdown as the
+central format of a document production system, which has been
+described previously [@krewinkel2017].
 
-# Basic Tagging
+# Submission and Acceptance Process
+
+1. Authors open an issue on GitHub
+2. A preview article proof is generated automatically
+3. Reviewers inspect both the software source code and the paper.
+4. If the article is accepted, then the publishing pipeline is
+   invoked with all necessary metadata. The paper is published on
+   the journal website within minutes of acceptance.
+
+# Markup Tagging
 
 In this section we demonstrate common conversions.
 
 ## Emphasis Markup
 
-The markup in Markdown in supposed to be semantical, not
+The markup in Markdown in supposed to be semantic, not
 presentational. The table below gives a small example.
 
 | Markup          | Markdown   | JATS                    |
@@ -159,9 +149,8 @@ formatted according to the requirements of the current CSL.
 
 For JOSS, however, we chose to use the alternative
 `<element-citation>` elements, which can be enabled via an pandoc
-option. This allows roundtrips from bib to JATS and back, should
+option. This allows round-trips from bib to JATS and back, should
 it ever be necessary.
-
 
 # Challenges
 
@@ -171,3 +160,14 @@ Differences between JATS and pandoc's internal document model.
 |-----------|------------|----------------------------|
 | math      | any inline | not named contents, target |
 |           |            |                            |
+
+# Metadata
+
+We convert to pandoc's metadata schema for JATS output
+(<https://pandoc.org/jats>).
+
+# Other Output Formats
+
+PDF is generated directly from the Markdown input, as is Crossref
+XML. It would be possible to also publish an HTML version of the
+articles, but this remains future work.
