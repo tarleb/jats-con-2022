@@ -1,0 +1,10 @@
+standalone: true
+
+filters:
+  - type: citeproc
+  - type: lua
+    path: filters/abstract-to-meta.lua
+
+metadata:
+  reference-section-title: References
+  reference-links: true
