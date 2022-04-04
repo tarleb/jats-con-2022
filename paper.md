@@ -23,9 +23,22 @@ author:
     country: USA
     country-code: US
 copyright:
-  statement: Published under CC-BY-SA.
+  statement: >-
+    © 2022 The authors. Published under a CC BY-SA 4.0 license.
   year: 2022
-  holder: The authors
+  holder: Albert Krewinkel, Juanjo Bazán, Arfon Smith
+license:
+  - text: >-
+      This work is licensed under a Creative Commons
+      Attribution-ShareAlike 4.0 International License.
+    type: open-access
+    link: 'https://creativecommons.org/licenses/by-sa/4.0/'
+  - >-
+      The copyright holder grants the U.S. National Library of Medicine
+      permission to archive and post a copy of this paper on the Journal
+      Article Tag Suite Conference proceedings website.
+
+
 bibliography: paper.bib
 ---
 
