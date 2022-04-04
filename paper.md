@@ -76,7 +76,11 @@ The system follows the general idea of using Markdown as the
 central format of a document production system, which has been
 described previously [@krewinkel2017].
 
-# Submission and Acceptance Process
+# Background
+
+JOSS is a developer-focused journal.
+
+## JOSS review process
 
 1. Authors open an issue on GitHub
 2. A preview article proof is generated automatically
@@ -85,7 +89,9 @@ described previously [@krewinkel2017].
    invoked with all necessary metadata. The paper is published on
    the journal website within minutes of acceptance.
 
-# Markup Tagging
+# Markup Conversion
+
+## Text
 
 In this section we demonstrate common conversions.
 
@@ -165,7 +171,86 @@ For JOSS, however, we chose to use the alternative
 option. This allows round-trips from bib to JATS and back, should
 it ever be necessary.
 
-# Challenges
+# Adjustments
+
+The conversion process by stock pandoc is not always sufficient
+for a satisfactory XML output. E.g., many authors are used to
+writing LaTeX, and include raw LaTeX snippets in the Markdown
+input. These snippets will be used when producing PDF output, but
+do not show up in other output formats. The most common use of
+such snippets is for document-internal cross-references.
+
+Pandoc offers a feature called "Lua filters" that allows to modify
+the abstract document tree programmatically. We made heavy use of
+Lua filters to improve and shape the conversion process.
+
+## LaTeX code for cross-references
+
+We automatically check the document for raw LaTeX code relevant to
+cross-references. Pandoc's LaTeX parser is used to process these
+snippets.
+
+Example code:
+
+``` lua
+-- Function called on all raw inline snippets.
+RawInline = function (raw)
+  -- Do nothing if the snippet does not contain TeX code.
+  if not raw.format == 'tex' then
+    return nil
+  end
+
+  -- Check if code is related to cross-references.
+  -- If it is, then parse the snippet as LaTeX and
+  -- use the parse-result to replace the snippet
+  -- in the document structure.
+  local is_ref_or_label = raw.text:match '^\\ref%{'
+    or raw.text:match '^\\autoref'
+    or raw.text:match '^\\label%{.*%}$'
+  if is_ref_or_label then
+    local first = pandoc.read(raw.text, 'latex').blocks[1]
+    return first and first.content or nil
+  end
+
+  -- Otherwise do nothing.
+  return nil
+end
+```
+
+The actual numbering of equations and tables is done in the filter
+as well.
+
+## Metadata
+
+We convert to pandoc's metadata schema for JATS output
+(<https://pandoc.org/jats>).
+
+
+# Advantages
+
+The pipeline if well suited for a journal like JOSS, reducing
+human involvement in the publishing process to a minimum.
+
+## Additionl Output Formats
+
+PDF is generated directly from the Markdown input, as is Crossref
+XML. It would be possible to also publish an HTML version of the
+articles, but this remains future work.
+
+## Flexibility
+
+Pandoc is flexible and scriptable, making is possible to adjust to
+future changes and requirements.
+
+# Future Work
+
+- Generalizing the pipeline to make it usable by other journals.
+- Allow for alternative plain-text input formats like
+  org[@Dominik2010] or reStructuredText[@reStructuredText].
+- Support for reproducible research articles using quarto, jupyter
+  notebooks, or the like.
+
+## Challenges
 
 Differences between JATS and pandoc's internal document model.
 
@@ -173,21 +258,3 @@ Differences between JATS and pandoc's internal document model.
 |-----------|------------|----------------------------|
 | math      | any inline | not named contents, target |
 |           |            |                            |
-
-# Metadata
-
-We convert to pandoc's metadata schema for JATS output
-(<https://pandoc.org/jats>).
-
-# Other Output Formats
-
-PDF is generated directly from the Markdown input, as is Crossref
-XML. It would be possible to also publish an HTML version of the
-articles, but this remains future work.
-
-# Future Work
-
-- Generalizing the pipeline to make it usable by other journals.
-- Allow for alternative plain-text input formats like
-  org[@Dominik2010] or reStructuredText[@reStructuredText].
-- Support for quarto
