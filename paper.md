@@ -76,6 +76,12 @@ The system follows the general idea of using Markdown as the
 central format of a document production system, which has been
 described previously [@krewinkel2017].
 
+The idea of using Markdown to produce JATS output has been
+described previously[@johnston2016jatdown]; our method differs in
+that we consider JATS not as an intermediary format, but as the
+normalized exchange format for articles. The source for all output
+formats remains the author-generated Markdown file.
+
 # Background
 
 JOSS is a developer-focused journal.
