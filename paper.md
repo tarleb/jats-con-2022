@@ -157,6 +157,35 @@ Maybe this one is nicer?
 $\int_{-\infty}^{+\infty} e^{-x^2} \, dx$
 -->
 
+## Code listings
+
+Code is put into `<code>` elements. If the language is unknown,
+then `<preformat>` is used instead. No syntax highlighting is done
+when targeting JATS.
+
+## Figures
+
+Pandoc currently uses *implicit figures*, i.e., paragraphs that
+contain only an image are treated as figures.
+
+``` markdown
+![The figure caption](image-path.jpg)
+```
+
+``` xml
+<fig>
+  <caption><p>The figure caption</p></caption>
+  <graphic mimetype="image" mime-subtype="jpeg"
+           xlink:href="image-path.jpg" xlink:title="" />
+</fig>
+```
+
+Linebreaks added for readability.
+
+## Tables
+
+
+
 ## References
 
 BibTeX, and the advanced reimplementation BibLaTeX, are popular
