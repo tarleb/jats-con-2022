@@ -106,12 +106,12 @@ In this section we demonstrate common conversions.
 The markup in Markdown in supposed to be semantic, not
 presentational. The table below gives a small example.
 
-| Markup          | Markdown   | JATS                    |
-|-----------------|------------|-------------------------|
-| Emphasis        | `*this*`   | `<italic>this</italic>` |
-| Strong emphasis | `**that**` | `<bold>that</bold>`     |
-| Superscript     | `H~2~O`    | `H<sub>2</sub>O`        |
-| Subscript       | `Ca^2+^`   | `Ca<sup>2+</sup>`       |
+| Markup          | Markdown   | JATS                    | Result   |
+|-----------------|------------|-------------------------|----------|
+| Emphasis        | `*this*`   | `<italic>this</italic>` | *this*   |
+| Strong emphasis | `**that**` | `<bold>that</bold>`     | **that** |
+| Superscript     | `H~2~O`    | `H<sub>2</sub>O`        | H~2~0    |
+| Subscript       | `Ca^2+^`   | `Ca<sup>2+</sup>`       | Ca^2+^   |
 
 ## Mathematical Formulæ
 
