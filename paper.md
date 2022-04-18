@@ -149,6 +149,9 @@ math. A formula like $a^2 + b^2 = c^2$ is rendered as
 </inline-formula>
 ```
 
+Whitespace and indentations are not as in the generated output but
+were added for readability.
+
 Note that the XML includes both the raw TeX markup as well as the
 MathML representation.
 
@@ -159,9 +162,20 @@ $\int_{-\infty}^{+\infty} e^{-x^2} \, dx$
 
 ## Code listings
 
-Code is put into `<code>` elements. If the language is unknown,
-then `<preformat>` is used instead. No syntax highlighting is done
-when targeting JATS.
+There are multiple ways in which code blocks can be written in
+Markdown. The most frequently used syntax delimits the code by
+three backticks on a separate line, where the programming language
+can optionally be given on the opening line.
+
+````` markdown
+``` html
+<h1>HTML heading</h1>
+```
+`````
+
+Code blocks are put into `<code>` elements. If the language is
+unknown, then `<preformat>` is used instead. No syntax
+highlighting is done when targeting JATS.
 
 ## Figures
 
@@ -184,7 +198,54 @@ Linebreaks added for readability.
 
 ## Tables
 
+The most common way to write tables are so-called "pipe tables",
+named in reference to the pipe character `|` being used as column
+separator.
 
+``` markdown
+: Table caption
+
+| Item | Name |
+|------|------|
+| 1    | Fork |
+| 2    | Glas |
+```
+
+As demonstrated above, a caption for the table can be added by
+prefixing a line before the table with a colon `:`.
+
+``` xml
+<table-wrap>
+  <caption>
+    <p>Table caption</p>
+  </caption>
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Fork</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Glas</td>
+      </tr>
+    </tbody>
+  </table>
+</table-wrap>
+```
+
+More complex tables, e.g. with cells spanning multiple columns or
+rows, can currently not be represented in Markdown syntax.
+However, Markdown, due in part to its origins as a blogging tool,
+allows to embed raw HTML. Pandoc can be configured to parse these
+snippets, so it would be possible to fall back to HTML when
+necessary.
 
 ## References
 
