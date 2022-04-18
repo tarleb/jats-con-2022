@@ -267,7 +267,36 @@ For JOSS, however, we chose to use the alternative
 option. This allows round-trips from bib to JATS and back, should
 it ever be necessary.
 
-# Adjustments
+# Architecture
+
+The unconventional nature of the system increases the importance
+of easy deployment and usability: Software developers are very
+accustomed to Markdown as a tool for software documentation and
+exchange, but less used to using it for publishing, and as part of
+a new workflow. Naturally, authors must be offered an easy way to
+generate artifacts like a PDF preview of their paper.
+
+Pandoc is the base component of the publishing pipeline, with
+scripts, templates, and configuration files as another essential
+part.
+
+## Containerization
+
+The publishing component is containerized and available as a
+Docker image from multiple container registries. Authors can use
+the image in a fashion similar to a normal command line program,
+generating PDF and JATS output just by pointing the program to the
+article's Markdown file.
+
+Regardless, familiarity with the command line should not be a
+prerequisite for article authors. For that reason, and since most
+published software is developed on GitHub, we provide a "GitHub
+Action" that can be enabled by placing a file with a few lines of
+code in the software's repository. This will build the publishing
+artifacts on a remote server and make the artifacts available for
+download each time the repository is updated.
+
+## Conversion Adjustments
 
 The conversion process by stock pandoc is not always sufficient
 for a satisfactory XML output. E.g., many authors are used to
@@ -349,8 +378,3 @@ future changes and requirements.
 ## Challenges
 
 Differences between JATS and pandoc's internal document model.
-
-| component | pandoc     | jats                       |
-|-----------|------------|----------------------------|
-| math      | any inline | not named contents, target |
-|           |            |                            |
