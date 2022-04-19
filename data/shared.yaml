@@ -1,4 +1,6 @@
+csl: vancouver-brackets.csl
 standalone: true
+lang: en-US
 
 filters:
   - type: citeproc
