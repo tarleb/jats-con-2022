@@ -392,30 +392,70 @@ their affiliations, as well as parsing of names into firstname,
 surname, and suffixes. Authors can add details and override the
 algorithm in case this automatic parsing fails.
 
-# Advantages
+# Advantages and Drawbacks
 
 The pipeline if well suited for a journal like JOSS, reducing
 human involvement in the publishing process to a minimum.
 
-## Additionl Output Formats
+## Output Formats
 
-PDF is generated directly from the Markdown input, as is Crossref
-XML. It would be possible to also publish an HTML version of the
-articles, but this remains future work.
+Besides JATS, the publishing pipeline is also used to produce
+PDF/A-3a output suitable for publishing and archiving. Just as
+JATS, the PDF is generated directly from the Markdown input via
+pandoc and LaTeX; the author-submitted text files constitute the
+source in this single source publishing workflow. Furthermore, the
+pipeline is also used to produce Crossref XML.
 
-## Flexibility
+It would be possible to extended the system to produce HTML, EPUB,
+or other target formats supported by pandoc. The main obstacle for
+this is the handling of metadata, as the converter assumes a
+simpler metadata structure for most formats than what it supports
+for JATS. This can be resolved with moderate effort by using
+custom template that includes all relevant variables in the
+output.
 
-Pandoc is flexible and scriptable, making is possible to adjust to
-future changes and requirements.
+## Markup expressiveness
 
-# Future Work
+The limited number of markup elements helps to produce
+semantically tagged output. However, Markdown is, by design, less
+expressive than JATS. For example, there is no standard way in
+Markdown to add a title to the caption of a figure or table, to
+build an index, or to specify inline attribution information for a
+quote or graph, all of which are supported in JATS. Similar
+problems arise when targeting HTML, especially when adding inline
+semantic information.
 
-- Generalizing the pipeline to make it usable by other journals.
-- Allow for alternative plain-text input formats like
-  org[@Dominik2010] or reStructuredText[@reStructuredText].
-- Support for reproducible research articles using quarto, jupyter
-  notebooks, or the like.
+While it is possible to encode semantics in
+Markdown[@krewinkel2017], and to extend pandoc via various methods
+(e.g. [Lua filters](https://pandoc.org/lua-filters)) to map this
+data into the appropriate tags, these extensions will typically be
+*ad hoc* and might require new standardization efforts to prevent
+the development of new and incompatible conventions.
 
-## Challenges
+Nonetheless, we found Markdown to be sufficiently expressive for
+all articles published in JOSS, and believe that the simplicity
+and author convenience justifies its use as the base format in a
+single source publishing workflow.
 
-Differences between JATS and pandoc's internal document model.
+## Reuse
+
+The publishing system is currently geared towards JOSS, but could
+be adjusted to suit different journals as well. All software used
+by JOSS, including the publishing pipeline, are Open Source and
+available under an [OSI](https://opensource.org) approved license.
+The sources can be found on the [GitHub account of the Open
+Journals organization](https://github.com/openjournals).
+
+One aspect worth highlighting in this context is that, due to
+pandoc's wide range of supported input formats, the pipeline could
+be modified to work with additional or alternative input formats.
+Work is underway to build a modified version that works with
+reStructuredText[@reStructuredText]. Support for other formats,
+like Emacs org[@Dominik2010], Jupyter notebooks, or even Docx,
+would be possible as well.
+
+# Conclusions
+
+Our pipeline implements a single-source publishing workflow that
+uses the author-provided Markdown document and BibTeX file as
+primary input, producing JATS, PDF, and Crossref XML.
