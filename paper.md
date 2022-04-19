@@ -70,11 +70,9 @@ providing a mechanism for research software developers to receive
 credit".[@smith2018]
 
 We developed a publishing system to go from Markdown to JATS in a
-mostly automatic fashion.
-
-The system follows the general idea of using Markdown as the
-central format of a document production system, which has been
-described previously [@krewinkel2017].
+mostly automatic fashion. The system follows the general idea of
+using Markdown as the central format of a document production
+system, which has been described previously.[@krewinkel2017]
 
 The idea of using Markdown to produce JATS output has been
 described previously[@johnston2016jatdown]; our method differs in
@@ -82,24 +80,36 @@ that we consider JATS not as an intermediary format, but as the
 normalized exchange format for articles. The source for all output
 formats remains the author-generated Markdown file.
 
-# Background
+## Journal of Open Source Software
 
-JOSS is a developer-focused journal.
+JOSS is designed as a developer-focused journal. It uses the same
+infrastructure that many software authors are already using, and
+models its reviewing and publishing processes around this as well.
 
-## JOSS review process
+Reviewing and publishing happens mostly on the software
+collaboration platform [GitHub](https://github.com/). Authors and
+editors are supported by an "editorialbot", a software that can be
+controlled through comments posted to the website. It provides
+statistical information on the submitted software, generates PDF
+proofs for the convenience of authors and reviewers, and triggers
+the final publishing step in case of paper acceptance.
 
-1. Authors open an issue on GitHub
-2. A preview article proof is generated automatically
-3. Reviewers inspect both the software source code and the paper.
-4. If the article is accepted, then the publishing pipeline is
-   invoked with all necessary metadata. The paper is published on
-   the journal website within minutes of acceptance.
+Papers, published under a Creative Commons license, are
+immediately uploaded to the journal's website and
+[archived](https://github.com/openjournals/joss-papers) in a
+public git repository.
+
+This paper focuses on the publishing system, i.e., the component
+producing proofs and final artifacts, with the Markdown-to-JATS
+conversion as the major point of interest.
 
 # Markup Conversion
 
-## Text
-
-In this section we demonstrate common conversions.
+An adequate assessment of the presented method is best done by
+looking at some key document structures and how they are
+represented in Markdown and converted to JATS. This can should not
+be understood as a complete reference, but as examples to
+demonstrate the general system capabilities.
 
 ## Emphasis Markup
 
@@ -183,18 +193,19 @@ Pandoc currently uses *implicit figures*, i.e., paragraphs that
 contain only an image are treated as figures.
 
 ``` markdown
-![The figure caption](image-path.jpg)
+![The figure caption](image-path.jpg "optional title")
 ```
 
 ``` xml
 <fig>
   <caption><p>The figure caption</p></caption>
   <graphic mimetype="image" mime-subtype="jpeg"
-           xlink:href="image-path.jpg" xlink:title="" />
+           xlink:href="image-path.jpg"
+           xlink:title="optional title" />
 </fig>
 ```
 
-Linebreaks added for readability.
+Linebreaks in the graphic element above were added for readability.
 
 ## Tables
 
@@ -243,9 +254,9 @@ prefixing a line before the table with a colon `:`.
 More complex tables, e.g. with cells spanning multiple columns or
 rows, can currently not be represented in Markdown syntax.
 However, Markdown, due in part to its origins as a blogging tool,
-allows to embed raw HTML. Pandoc can be configured to parse these
-snippets, so it would be possible to fall back to HTML when
-necessary.
+allows to embed raw HTML. Pandoc can be configured to parse and
+convert these snippets, so it would be possible to fall back to
+HTML when necessary.
 
 ## References
 
@@ -309,7 +320,7 @@ Pandoc offers a feature called "Lua filters" that allows to modify
 the abstract document tree programmatically. We made heavy use of
 Lua filters to improve and shape the conversion process.
 
-## LaTeX code for cross-references
+### LaTeX code for cross-references
 
 We automatically check the document for raw LaTeX code relevant to
 cross-references. Pandoc's LaTeX parser is used to process these
@@ -347,9 +358,39 @@ as well.
 
 ## Metadata
 
-We convert to pandoc's metadata schema for JATS output
-(<https://pandoc.org/jats>).
+The systems primary format for metadata is
+[YAML](https://yaml.org/), a "human-friendly data serialization
+language"[@OfficialYAMLWeb]. Pandoc supports the specification of
+article metadata in YAML blocks, either directly in the article
+file or in separate metadata files.
 
+``` yaml
+---
+title: Exemplum
+date: 2022-05-02
+---
+```
+
+Three different types of metadata are differentiated in the
+publishing system: journal metadata, typically included in the
+`<journal-meta>` element, as well as author-supplied and
+system-generated article metadata. Journal metadata are hard-coded
+into a global configuration file, while author-supplied metadata,
+like title and contributors, are taken from the YAML header of the
+Markdown file. System-generated article-metadata include the DOI,
+submission and acceptance dates, as well as volume and issue
+numbers, and are passed to the pipeline only when building the
+final publishing artifacts.
+
+We use pandoc's [metadata schema for JATS
+output](<https://pandoc.org/jats>), which can be thought of as a
+restricted subset of JATS frontmatter. As the focus is on author
+convenience, and due in part to historical decisions and part to
+the limitations of YAML, the system performs a normalization of
+user-provided metadata. This includes the linking of authors with
+their affiliations, as well as parsing of names into firstname,
+surname, and suffixes. Authors can add details and override the
+algorithm in case this automatic parsing fails.
 
 # Advantages
 
