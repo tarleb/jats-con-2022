@@ -1,6 +1,5 @@
 csl: vancouver-brackets.csl
 standalone: true
-lang: en-US
 
 filters:
   - type: citeproc
@@ -8,5 +7,6 @@ filters:
     path: filters/abstract-to-meta.lua
 
 metadata:
+  lang: en-US
   reference-section-title: References
   reference-links: true

@@ -1,0 +1,6 @@
+defaults:
+  - data/shared.yaml
+
+filters:
+  - path: data/filters/flatten-authors.lua
+    type: lua

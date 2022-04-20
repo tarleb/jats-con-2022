@@ -9,7 +9,7 @@ paper.jats.xml: paper.md filters/abstract-to-meta.lua
 
 paper.pdf: paper.md filters/abstract-to-meta.lua
 	$(PANDOC) \
-	    --defaults=data/shared.yaml \
+	    --defaults=data/latex.yaml \
 	    --to=latex \
 	    --pdf-engine=lualatex \
 	    --output=$@ \
