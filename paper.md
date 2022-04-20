@@ -430,7 +430,7 @@ human involvement in the publishing process to a minimum.
 ## Output Formats
 
 Besides JATS, the publishing pipeline is also used to produce
-PDF/A-3a output suitable for publishing and archiving. Just as
+PDF/A-3a output suitable for publishing and archiving[@pdfa3]. Just as
 JATS, the PDF is generated directly from the Markdown input via
 pandoc and LaTeX; the author-submitted text files constitute the
 source in this single source publishing workflow. Furthermore, the
