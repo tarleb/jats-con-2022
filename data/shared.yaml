@@ -2,9 +2,11 @@ csl: vancouver-brackets.csl
 standalone: true
 
 filters:
+  - path: filters/abstract-to-meta.lua
+    type: lua
+  - path: data/filters/abbrev.lua
+    type: lua
   - type: citeproc
-  - type: lua
-    path: filters/abstract-to-meta.lua
 
 metadata:
   lang: en-US
