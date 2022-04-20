@@ -16,12 +16,12 @@ author:
 - name: Arfon Smith
   orcid: 0000-0002-3957-2474
   affiliation:
-  - id: 4
-    organization: Open Journals
   - id: 3
     organization: GitHub
     country: USA
     country-code: US
+  - id: 4
+    organization: Open Journals
 copyright:
   statement: >-
     © 2022 The authors. Published under a CC BY-SA 4.0 license.
@@ -37,8 +37,6 @@ license:
       The copyright holder grants the U.S. National Library of Medicine
       permission to archive and post a copy of this paper on the Journal
       Article Tag Suite Conference proceedings website.
-
-
 bibliography: paper.bib
 ---
 
@@ -316,17 +314,25 @@ input. These snippets will be used when producing PDF output, but
 do not show up in other output formats. The most common use of
 such snippets is for document-internal cross-references.
 
-Pandoc offers a feature called "Lua filters" that allows to modify
+Pandoc offers a feature called "[Lua
+filters](https://pandoc.org/lua-filters)" that allows to modify
 the abstract document tree programmatically. We made heavy use of
 Lua filters to improve and shape the conversion process.
 
-### LaTeX code for cross-references
+### Cross-references
 
-We automatically check the document for raw LaTeX code relevant to
-cross-references. Pandoc's LaTeX parser is used to process these
-snippets.
+Markdown support for cross-references is limited. For example,
+there is no automatic numbering of figures or tables, as there is
+in LaTeX. However, as many authors are familiar with the
+respective LaTeX mechanisms, the decision was made to add support
+for these features.
 
-Example code:
+The system checks the document for raw LaTeX code relevant for
+cross-referencing. The snippets are then processed further in a
+Lua filter, using pandoc's LaTeX parser to read the raw LaTeX.
+
+Below is example Lua code, showing the kind of processing
+necessary to support LaTeX cross-references.
 
 ``` lua
 -- Function called on all raw inline snippets.
@@ -344,6 +350,8 @@ RawInline = function (raw)
     or raw.text:match '^\\autoref'
     or raw.text:match '^\\label%{.*%}$'
   if is_ref_or_label then
+    -- parse TeX as a document;
+    -- use first paragraph of the result.
     local first = pandoc.read(raw.text, 'latex').blocks[1]
     return first and first.content or nil
   end
@@ -353,8 +361,8 @@ RawInline = function (raw)
 end
 ```
 
-The actual numbering of equations and tables is done in the filter
-as well.
+The actual numbering of equations and tables, not shown here, is
+done in the filter as well.
 
 ## Metadata
 
@@ -382,15 +390,37 @@ submission and acceptance dates, as well as volume and issue
 numbers, and are passed to the pipeline only when building the
 final publishing artifacts.
 
+All three types of metadata are merged into the article object;
+journal metadata is given the highest precedence, followed by
+system-generated metadata, thereby ensuring that authors cannot
+overwrite any of these data in the final artifacts.
+
 We use pandoc's [metadata schema for JATS
 output](<https://pandoc.org/jats>), which can be thought of as a
 restricted subset of JATS frontmatter. As the focus is on author
 convenience, and due in part to historical decisions and part to
-the limitations of YAML, the system performs a normalization of
-user-provided metadata. This includes the linking of authors with
-their affiliations, as well as parsing of names into firstname,
-surname, and suffixes. Authors can add details and override the
-algorithm in case this automatic parsing fails.
+the limitations of YAML, the system performs a normalization step
+on the user-provided metadata. This includes the linking of
+authors with their affiliations, as well as parsing of names into
+firstname, surname, and suffixes. Authors can add details and
+override the algorithm in case this automatic parsing fails.
+
+The structure to specify authors and affiliations is influenced by
+historical decisions going back to a previous publishing system,
+but is focused on simplicity. Each author is given as a list item
+in the `authors` field. Affiliations are declared via references
+to affiliation indexes.
+
+``` yaml
+authors:
+  - name: John Doe
+    orcid: 0000-1234-5678-901X
+    affiliation: 1
+
+affiliations:
+  - name: Federation of Planets
+    index: 1
+```
 
 # Advantages and Drawbacks
 
