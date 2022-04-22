@@ -13,7 +13,7 @@ author:
   affiliation:
   - id: 2
     organization: Open Journals
-- name: Arfon Smith
+- name: Arfon M. Smith
   orcid: 0000-0002-3957-2474
   affiliation:
   - id: 3
@@ -42,14 +42,14 @@ bibliography: paper.bib
 
 # Abstract
 
-Research software has become an integral part of doing science in
-many disciplines. As a consequence, it is becoming increasingly
-important to publish. The Journal of Open Source Software (JOSS)
-is a developer friendly, open access journal for research software
-packages. Article authors are generally comfortable with tools
-commonly used by software developers. The JOSS production pipeline
-is considerate of this, supporting submissions to be written in
-Markdown, a lightweight markup-language.
+Software is an integral part of modern research and as a 
+consequence, it is becoming increasingly important to find ways
+to acknowledge and credit this work through publication. The [Journal 
+of Open Source Software](https://joss.theoj.org) (JOSS) [cite this? https://peerj.com/articles/cs-147/]
+is a developer friendly, open access 
+journal for research software packages. Authors of JOSS submissions are generally comfortable with tools
+commonly used by software developers, as such, the JOSS paper format, submission, and review process happen 
+in a developer-focused way with papers written in Markdown (a lightweight markup-language) and the review happening on GitHub.
 
 Here we present the single-source publishing pipeline developed
 for JOSS,
@@ -68,7 +68,7 @@ providing a mechanism for research software developers to receive
 credit".[@smith2018]
 
 We developed a publishing system to go from Markdown to JATS in a
-mostly automatic fashion. The system follows the general idea of
+mostly automated fashion. The system follows the general idea of
 using Markdown as the central format of a document production
 system, which has been described previously.[@krewinkel2017]
 
@@ -80,16 +80,15 @@ formats remains the author-generated Markdown file.
 
 ## Journal of Open Source Software
 
-JOSS is designed as a developer-focused journal. It uses the same
+The JOSS experience is designed to be family to software developers. It uses the same
 infrastructure that many software authors are already using, and
 models its reviewing and publishing processes around this as well.
 
 Reviewing and publishing happens mostly on the software
 collaboration platform [GitHub](https://github.com/). Authors and
 editors are supported by an "editorialbot", a software that can be
-controlled through comments posted to the website. It provides
-statistical information on the submitted software, generates PDF
-proofs for the convenience of authors and reviewers, and triggers
+controlled through comments posted to the website (could cite https://www.arfon.org/chatops-driven-publishing here). It automates many aspects of the editorial checks including information on the submitted software, generates PDF
+proofs for the convenience of authors and reviewers, checking citation metadata and triggering
 the final publishing step in case of paper acceptance.
 
 Papers, published under a Creative Commons license, are
@@ -103,10 +102,10 @@ conversion as the major point of interest.
 
 # Markup Conversion
 
-An adequate assessment of the presented method is best done by
-looking at some key document structures and how they are
+Below we demonstrate how a the conversion takes plance by examining 
+some key document structures and how they are
 represented in Markdown and converted to JATS. This can should not
-be understood as a complete reference, but as examples to
+be understood as a complete reference, but as a few examples to
 demonstrate the general system capabilities.
 
 ## Emphasis Markup
@@ -281,9 +280,8 @@ it ever be necessary.
 The unconventional nature of the system increases the importance
 of easy deployment and usability: Software developers are very
 accustomed to Markdown as a tool for software documentation and
-exchange, but less used to using it for publishing, and as part of
-a new workflow. Naturally, authors must be offered an easy way to
-generate artifacts like a PDF preview of their paper.
+exchange, but less used to using it for publishing. As part of the JOSS experience, authors are offered an easy way to
+generate artifacts like a PDF preview of their paper in the review thread itself by issuing commands such as `@editorialbot generate pdf`.
 
 Pandoc is the base component of the publishing pipeline, with
 scripts, templates, and configuration files as another essential
@@ -297,10 +295,10 @@ the image in a fashion similar to a normal command line program,
 generating PDF and JATS output just by pointing the program to the
 article's Markdown file.
 
-Regardless, familiarity with the command line should not be a
+Familiarity with the command line should not be a
 prerequisite for article authors. For that reason, and since most
 published software is developed on GitHub, we provide a "GitHub
-Action" that can be enabled by placing a file with a few lines of
+Action" [link to it?] that can be enabled by placing a file with a few lines of
 code in the software's repository. This will build the publishing
 artifacts on a remote server and make the artifacts available for
 download each time the repository is updated.
@@ -424,8 +422,8 @@ affiliations:
 
 # Advantages and Drawbacks
 
-The pipeline if well suited for a journal like JOSS, reducing
-human involvement in the publishing process to a minimum.
+This pipeline is well suited for a journal like JOSS, where there is a heavy focus on automation and reducing
+manual steps in the publishing process.
 
 ## Output Formats
 
@@ -457,7 +455,7 @@ semantic information.
 
 While it is possible to encode semantics in
 Markdown[@krewinkel2017], and to extend pandoc via various methods
-(e.g. [Lua filters](https://pandoc.org/lua-filters)) to map this
+(e.g., [Lua filters](https://pandoc.org/lua-filters)) to map this
 data into the appropriate tags, these extensions will typically be
 *ad hoc* and might require new standardization efforts to prevent
 the development of new and incompatible conventions.
