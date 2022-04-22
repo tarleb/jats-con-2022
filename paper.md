@@ -42,20 +42,22 @@ bibliography: paper.bib
 
 # Abstract
 
-Software is an integral part of modern research and as a 
-consequence, it is becoming increasingly important to find ways
-to acknowledge and credit this work through publication. The [Journal 
-of Open Source Software](https://joss.theoj.org) (JOSS) [cite this? https://peerj.com/articles/cs-147/]
-is a developer friendly, open access 
-journal for research software packages. Authors of JOSS submissions are generally comfortable with tools
-commonly used by software developers, as such, the JOSS paper format, submission, and review process happen 
-in a developer-focused way with papers written in Markdown (a lightweight markup-language) and the review happening on GitHub.
+Software is an integral part of modern research and as a
+consequence, it is becoming increasingly important to find ways to
+acknowledge and credit this work through publication. The [Journal
+of Open Source Software](https://joss.theoj.org) (JOSS) is a
+developer friendly, open access journal for research software
+packages. Authors of JOSS submissions are generally comfortable
+with tools commonly used by software developers, as such, the JOSS
+paper format, submission, and review process happen in a
+developer-focused way with papers written in Markdown (a
+lightweight markup-language) and the review happening on GitHub.
 
 Here we present the single-source publishing pipeline developed
 for JOSS,
 especially the conversion of articles authored in Markdown into
 PDF and XML formats, including JATS. We describe how we built on
-and extended the document converter "pandoc", how metadata is
+and extended the document converter *pandoc*, how metadata is
 processed and integrated into the publishing artifacts, and which
 advantages and challenges we see in enriching plain-text inputs
 into structured documents.
@@ -80,16 +82,20 @@ formats remains the author-generated Markdown file.
 
 ## Journal of Open Source Software
 
-The JOSS experience is designed to be family to software developers. It uses the same
-infrastructure that many software authors are already using, and
-models its reviewing and publishing processes around this as well.
+The JOSS experience is designed to be family to software
+developers. It uses the same infrastructure that many software
+authors are already using, and models its reviewing and publishing
+processes around this as well.
 
 Reviewing and publishing happens mostly on the software
 collaboration platform [GitHub](https://github.com/). Authors and
 editors are supported by an "editorialbot", a software that can be
-controlled through comments posted to the website (could cite https://www.arfon.org/chatops-driven-publishing here). It automates many aspects of the editorial checks including information on the submitted software, generates PDF
-proofs for the convenience of authors and reviewers, checking citation metadata and triggering
-the final publishing step in case of paper acceptance.
+controlled through comments posted to the website[@chatops]. It
+automates many aspects of the editorial checks including
+information on the submitted software, generates PDF proofs for
+the convenience of authors and reviewers, checking citation
+metadata and triggering the final publishing step in case of paper
+acceptance.
 
 Papers, published under a Creative Commons license, are
 immediately uploaded to the journal's website and
@@ -102,9 +108,9 @@ conversion as the major point of interest.
 
 # Markup Conversion
 
-Below we demonstrate how a the conversion takes plance by examining 
+Below we demonstrate how a the conversion takes plance by examining
 some key document structures and how they are
-represented in Markdown and converted to JATS. This can should not
+represented in Markdown and converted to JATS. This should not
 be understood as a complete reference, but as a few examples to
 demonstrate the general system capabilities.
 
@@ -280,8 +286,10 @@ it ever be necessary.
 The unconventional nature of the system increases the importance
 of easy deployment and usability: Software developers are very
 accustomed to Markdown as a tool for software documentation and
-exchange, but less used to using it for publishing. As part of the JOSS experience, authors are offered an easy way to
-generate artifacts like a PDF preview of their paper in the review thread itself by issuing commands such as `@editorialbot generate pdf`.
+exchange, but less used to using it for publishing. As part of the
+JOSS experience, authors are offered an easy way to generate
+artifacts like a PDF preview of their paper in the review thread
+itself by issuing commands such as `@editorialbot generate pdf`.
 
 Pandoc is the base component of the publishing pipeline, with
 scripts, templates, and configuration files as another essential
@@ -295,11 +303,12 @@ the image in a fashion similar to a normal command line program,
 generating PDF and JATS output just by pointing the program to the
 article's Markdown file.
 
-Familiarity with the command line should not be a
-prerequisite for article authors. For that reason, and since most
-published software is developed on GitHub, we provide a "GitHub
-Action" [link to it?] that can be enabled by placing a file with a few lines of
-code in the software's repository. This will build the publishing
+Familiarity with the command line should not be a prerequisite for
+article authors. For that reason, and since most published
+software is developed on GitHub, we [provide a "GitHub
+Action"](https://github.com/openjournals/openjournals-draft-action)
+that can be enabled by placing a file with a few lines of code in
+the software's repository. This will build the publishing
 artifacts on a remote server and make the artifacts available for
 download each time the repository is updated.
 
@@ -422,8 +431,9 @@ affiliations:
 
 # Advantages and Drawbacks
 
-This pipeline is well suited for a journal like JOSS, where there is a heavy focus on automation and reducing
-manual steps in the publishing process.
+This pipeline is well suited for a journal like JOSS, where there
+is a heavy focus on automation and reducing manual steps in the
+publishing process.
 
 ## Output Formats
 
@@ -463,7 +473,7 @@ the development of new and incompatible conventions.
 Nonetheless, we found Markdown to be sufficiently expressive for
 all articles published in JOSS, and believe that the simplicity
 and author convenience justifies its use as the base format in a
-single source publishing workflow.
+single-source publishing workflow.
 
 ## Reuse
 
