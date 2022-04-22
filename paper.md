@@ -497,3 +497,17 @@ would be possible as well.
 Our pipeline implements a single-source publishing workflow that
 uses the author-provided Markdown document and BibTeX file as
 primary input, producing JATS, PDF, and Crossref XML.
+
+The *pandoc* document converter supports common scientific
+document components like code listings, tables, formulæ, and
+figures, allowing automated tagging, as well as the production of
+visually-focused artifacts. This is enhanced further by
+customizing the document conversion process via various pandoc
+mechanisms, including custom Lua scripts for metadata handling and
+document-internal cross-references.
+
+The system presented here allows for the quick generation of
+article proofs and archiving artifacts. This, combined with the
+heavy focus on automation in JOSS, enables a single-source
+workflow that supports a very short write--review cycle, as well
+as direct and effortless publishing.
