@@ -478,11 +478,14 @@ single-source publishing workflow.
 ## Reuse
 
 The publishing system is currently geared towards JOSS, but could
-be adjusted to suit different journals as well. All software used
-by JOSS, including the publishing pipeline, are Open Source and
-available under an [OSI](https://opensource.org) approved license.
-The sources can be found on the [GitHub account of the Open
-Journals organization](https://github.com/openjournals).
+be adjusted to suit different journals as well.^[For example, this
+article was written using a similar system. The sources are
+available from https://github.com/tarleb/jats-con-2022] All
+software used by JOSS, including the publishing pipeline, are Open
+Source and available under an [OSI](https://opensource.org)
+approved license. The sources can be found on the [GitHub account
+of the Open Journals
+organization](https://github.com/openjournals).
 
 One aspect worth highlighting in this context is that, due to
 pandoc's wide range of supported input formats, the pipeline could
