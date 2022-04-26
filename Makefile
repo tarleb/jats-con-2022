@@ -4,8 +4,8 @@ REVEALJS_TGZ = https://github.com/hakimel/reveal.js/archive/4.2.1.tar.gz
 
 paper.jats.xml: paper.md filters/abstract-to-meta.lua
 	$(PANDOC) \
-	    --defaults=data/shared.yaml \
-	    --to=jats_articleauthoring+element_citations \
+	    --defaults=data/jats.yaml \
+	    --to=jats_articleauthoring \
 	    --output=$@ \
 	    $<
 

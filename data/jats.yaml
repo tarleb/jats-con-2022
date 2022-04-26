@@ -1,0 +1,6 @@
+defaults:
+  - data/shared.yaml
+
+filters:
+  - path: data/filters/remove-references-heading.lua
+    type: lua
