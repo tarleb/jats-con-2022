@@ -20,11 +20,12 @@ paper.pdf: paper.md filters/abstract-to-meta.lua
 talk.html: $(TALK_FILE) reveal.js
 	$(PANDOC) \
 	    --self-contained \
-		  --mathml \
+	    --mathml \
 	    --to=revealjs \
 	    --slide-level=2 \
-		  --variable=theme:serif \
-		  --variable=revealjs-url:reveal.js \
+	    --variable=theme:serif \
+	    --variable=revealjs-url:reveal.js \
+	    --lua-filter=data/filters/graphviz.lua \
 	    --output=$@ \
 	    $<
 

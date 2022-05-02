@@ -6,6 +6,8 @@ filters:
     type: lua
   - path: data/filters/abbrev.lua
     type: lua
+  - path: data/filters/graphviz.lua
+    type: lua
   - type: citeproc
 
 metadata:
