@@ -364,6 +364,9 @@ JOSS Sources
 pandoc
 :   [pandoc.org](https://pandoc.org/)
 
+Article & slides
+:   [github.com/tarleb/jats-con-2022](https://github.com/tarleb/jats-con-2022)
+
 ::: notes
 
 - Add more notes here.
