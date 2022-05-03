@@ -51,7 +51,7 @@ digraph workflow {
   pandoc -> pandoc [label=filters];
   pandoc -> PDF;
   pandoc -> JATS;
-  pandoc -> Crossref XML;
+  pandoc -> "Crossref XML";
 }
 ```
 
@@ -294,7 +294,7 @@ digraph workflow {
   pandoc -> pandoc [label=filters];
   pandoc -> PDF;
   pandoc -> JATS;
-  pandoc -> Crossref XML;
+  pandoc -> "Crossref XML";
 }
 ```
 
