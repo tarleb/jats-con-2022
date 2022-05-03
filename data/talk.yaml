@@ -1,0 +1,19 @@
+from: markdown
+to: revealjs
+
+html-math-method: mathml
+standalone: true
+slide-level: 2
+extract-media: media
+
+# set to `true` to create a shareable HTML file. Speaker view will not
+# be available in that file.
+self-contained: false
+
+filters:
+  - path: data/filters/graphviz.lua
+    type: lua
+
+variables:
+  theme: serif
+  revealjs-url: reveal.js
