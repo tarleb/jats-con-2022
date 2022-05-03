@@ -7,18 +7,55 @@ date: May 3, 2022
 
 # Single-Source Publishing
 
-## Why
+- - -
 
-- Article becomes single source of truth.
-- Corrections are easy to do.
-- Producing article proofs is quick and easy.
+::::: columns
 
-## JOSS walkthrough
+::: column
+### What?
 
+Produce all publishing artifacts from a single source document.
+:::
 
-# Markdown
+::: column
+### Why?
+- Single source of truth.
+- Corrections are easy
+- Producing article proofs is quick and simple
+:::
 
-## Examples
+:::::
+
+## Journal of Open Source Software
+
+### 👨‍💻🖺🖹🖻👩‍💻
+
+# Markdown to JATS
+
+## Architecture
+
+``` {.dot .process}
+digraph workflow {
+  bgcolor="transparent"
+  metadata [shape=record, style=solid, label="Journal Metadata"];
+  resources [
+    shape=record,
+    style=solid,
+    label="{Paper|{<f0>Markdown|<f1>images |<f2>bibliography}}"];
+  configs [shape=record, style=solid,
+          label="{configs|{<f0>CSL |<f1>template}}"];
+
+  resources -> pandoc;
+  metadata -> pandoc;
+  configs -> pandoc;
+  pandoc -> pandoc [label=filters];
+  pandoc -> PDF;
+  pandoc -> JATS;
+  pandoc -> Crossref XML;
+}
+```
+
+## Markdown
 
 | Markdown   | JATS                    | Result   |
 |------------|-------------------------|----------|
@@ -27,59 +64,11 @@ date: May 3, 2022
 | `H~2~O`    | `H<sub>2</sub>O`        | H~2~O    |
 | `Ca^2+^`   | `Ca<sup>2+</sup>`       | Ca^2+^   |
 
-# Conversion
-
 ## pandoc
 
 - Universal document converter;
 - designed for paper writing;
 - allows flexible document conversion.
-
-## Formats
-
-::::: columns
-::: {.column width=48%}
-### Input
-
-- Markdown,
-- reStructuredText,
-- Jupyter notebooks,
-- Word Docx,
-- LaTeX,
-- JATS,
-- and 30+ more.
-:::
-
-::: {.column width=48%}
-### Output
-- JATS,
-- LaTeX,
-- EPUB,
-- HTML,
-- and 50+ more.
-:::
-:::::
-
-## Formulæ
-
-$$\int_{-\infty}^{+\infty} e^{-x^2} \, dx$$
-
-`$$\int_{-\infty}^{+\infty} e^{-x^2} \, dx$$`{.markdown style="font-size:75%"}
-
-
-``` xml
-<disp-formula>
-  <alternatives>
-    <tex-math>
-<![CDATA[\int_{-\infty}^{+\infty} e^{-x^2} \, dx]]>
-    </tex-math>
-    <mml:math display="block"
-    xmlns:mml="http://www.w3.org/1998/Math/MathML">
-    <!-- omitted -->
-    </mml:math>
-  </alternatives>
-</disp-formula>
-```
 
 ## Tables
 
@@ -104,6 +93,85 @@ $$\int_{-\infty}^{+\infty} e^{-x^2} \, dx$$
 </table-wrap>
 ```
 
+## Formulæ
+
+$$\int_{-\infty}^{+\infty} e^{-x^2} \, dx$$
+
+`$$\int_{-\infty}^{+\infty} e^{-x^2} \, dx$$`{.markdown style="font-size:75%"}
+
+
+``` xml
+<disp-formula>
+  <alternatives>
+    <tex-math>
+<![CDATA[\int_{-\infty}^{+\infty} e^{-x^2} \, dx]]>
+    </tex-math>
+    <mml:math display="block"
+    xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <!-- omitted -->
+    </mml:math>
+  </alternatives>
+</disp-formula>
+```
+
+## Citations
+
+::::: columns
+::: column
+```{.bibtex style="font-size:60%"}
+@article {Upper1974,
+  author = {Upper, Dennis},
+  title = {The unsuccessful self-treatment of
+           a case of “writer's block”},
+  journal = {Journal of Applied Behavior Analysis},
+  volume = {7},
+  number = {3},
+  publisher = {Blackwell Publishing Ltd},
+  issn = {1938-3703},
+  doi = {10.1901/jaba.1974.7-497a},
+  pages = {497--497},
+  year = {1974},
+}
+```
+:::
+::: column
+
+```markdown
+For a case study on writers
+block, see @Upper1974
+```
+:::
+:::::
+
+``` {.xml style="font-size:90%"}
+For a case study on writers block, see Upper
+(<xref alt="1974" rid="ref-Upper1974" ref-type="bibr">1974</xref>)
+```
+
+
+## References
+
+``` {.xml style="font-size:80%"}
+<ref id="ref-Upper1974">
+  <element-citation publication-type="article-journal">
+    <person-group person-group-type="author">
+      <name><surname>Upper</surname><given-names>Dennis</given-names></name>
+    </person-group>
+    <article-title>The unsuccessful self-treatment of a case of
+      “writer’s block”</article-title>
+    <source>Journal of Applied Behavior Analysis</source>
+    <publisher-name>Blackwell Publishing Ltd</publisher-name>
+    <year iso-8601-date="1974">1974</year>
+    <volume>7</volume>
+    <issue>3</issue>
+    <issn>1938-3703</issn>
+    <pub-id pub-id-type="doi">10.1901/jaba.1974.7-497a</pub-id>
+    <fpage>497</fpage>
+    <lpage>497</lpage>
+  </element-citation>
+</ref>
+```
+
 # Metadata
 
 ## Authors & Affiliations
@@ -123,35 +191,6 @@ affiliations:
 
 ::: notes
 The structure is historical. There are alternatives
-:::
-
-## Keywords
-
-``` yaml
-tags:
-  - space
-  - scify
-```
-
-## Generated
-
-::::: columns
-::: column
-- issue, volume, page №
-- DOI
-- software archive DOI
-- submission & publishing dates
-:::
-::: column
-- editor
-- reviewers
-- article URLs
-:::
-:::::
-
-::: notes
-The format converter is stateless, all article info must be fed in
-via metadata.
 :::
 
 ## Given Names / Surname
@@ -204,18 +243,37 @@ The structure is a mixture of JATS and CSL.
 For East Asian names see [here](#non-western-names)
 :::
 
-# Implementation
+## Keywords
 
-## Containerization
-
-``` sh
-docker run --rm -it \
-    -v $PWD:/data \
-    -u $(id -u):$(id -g) \
-    openjournals/inara \
-    -o pdf,crossref \
-    path/relative/to/current/directory/paper.md
+``` yaml
+tags:
+  - space
+  - scify
 ```
+
+## Generated
+
+::::: columns
+::: column
+- issue, volume, page №
+- DOI
+- software archive DOI
+- submission & publishing dates
+:::
+::: column
+- editor
+- reviewers
+- article URLs
+:::
+:::::
+
+::: notes
+The format converter is stateless, all article info must be fed in
+via metadata.
+:::
+
+
+# Pipeline
 
 ## Architecture
 
@@ -236,7 +294,7 @@ digraph workflow {
   pandoc -> pandoc [label=filters];
   pandoc -> PDF;
   pandoc -> JATS;
-  pandoc -> HTML;
+  pandoc -> Crossref XML;
 }
 ```
 
@@ -254,13 +312,15 @@ The `cor-id` is set for corresponding authors. It is required to
 link an author to the correspondence info.
 :::
 
-## Filter example
+## Containerization
 
-``` lua
-function Meta (meta)
-  meta.timestamp = os.date('%Y%m%d%H%M%S')
-  return meta
-end
+``` sh
+docker run --rm -it \
+    -v $PWD:/data \
+    -u $(id -u):$(id -g) \
+    openjournals/inara \
+    -o pdf,crossref \
+    path/relative/to/current/directory/paper.md
 ```
 
 
@@ -271,6 +331,8 @@ end
     - Quarto
 
 - JATS as intermediary format
+
+- Allow easy reuse
 
 ::: notes
 Other interesting inputs:
@@ -341,3 +403,42 @@ authors:
 
 For Western names, see [Destructured Names]
 :::
+
+## Filter example
+
+``` lua
+function Meta (meta)
+  meta.timestamp = os.date('%Y%m%d%H%M%S')
+  return meta
+end
+```
+
+## Formats
+
+::::: columns
+::: {.column width=48%}
+### Input
+
+- Markdown,
+- reStructuredText,
+- Jupyter notebooks,
+- Word Docx,
+- LaTeX,
+- JATS,
+- and 30+ more.
+:::
+
+::: {.column width=48%}
+### Output
+- JATS,
+- LaTeX,
+- EPUB,
+- HTML,
+- and 50+ more.
+:::
+:::::
+
+
+<!--
+Bring architecture slide in the beginning
+-->
